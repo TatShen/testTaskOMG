@@ -5,9 +5,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 0.3rem;
 }
 
 .enterLetter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 2.625rem;
   height: 2.625rem;
   border-radius: 0.5rem;
