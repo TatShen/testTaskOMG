@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import styles from './App.module.scss'
-import { LettersBlock } from './Components/LettersBlock/LettersBlock'
+import { WordsBlock } from './Components/WordsBlock/WordsBlock'
 
 function App() {
   const [level, setLevel] = useState(1)
@@ -8,7 +8,7 @@ function App() {
   return (
     <div className={styles.mainContainer}>
       <h1>Уровень {level}</h1>
-      <LettersBlock/>
+      <WordsBlock/>
     </div>
   )
 }
