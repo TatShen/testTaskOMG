@@ -1,0 +1,84 @@
+.mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.modal {
+  width: 33.12rem;
+  height: 27.94rem;
+
+  .content {
+    position: relative;
+    border-radius: 2.5rem;
+    width: 33.12rem;
+    height: 26.75rem;
+    background: #fff;
+
+    .ribbon {
+      width: 24rem;
+      height: 7.06rem;
+      margin: 0 4.5rem;
+      position: relative;
+     
+      img {
+        width: 24rem;
+        height: 7.06rem;
+        margin-top: -1.18rem;
+      }
+
+      p {
+        display: block;
+        width: 19.1rem;
+        position: absolute;
+        top: -1rem;
+        left: 2.5rem;
+        font-weight: 700;
+        font-size: 2.5rem;
+        line-height: 91%;
+        text-align: center;
+        color: #fff;
+        margin: 0 auto;
+      }
+    }
+
+    .cancel {
+      position: absolute;
+      width: 1.63rem;
+      height: 1.63rem;
+      top: 1.5rem;
+      right: 1.67rem;
+    }
+
+    p {
+      font-weight: 700;
+      font-size: 2rem;
+      line-height: 119%;
+      text-align: center;
+      color: #4d4d4d;
+      
+    }
+
+    .update {
+      width: 19.2rem;
+      height: 5.5rem;
+      border-radius: 2rem;
+      background-color: #65bd65;
+      border-bottom: 0.3rem solid #508853;
+      font-weight: 700;
+      font-size: 2.62rem;
+      line-height: 92%;
+      text-align: center;
+      color: #fff;
+      padding-bottom: 0.7rem;
+      margin-top: 1rem;
+    }
+  }
+}

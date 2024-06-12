@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'VAG World'; 
+  src: url('../public/fonts/vagWorldBold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+
 * {
   padding: 0;
   margin: 0;
@@ -36,6 +44,7 @@ body {
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  font-family: "VAG World", sans-serif;
 }
 input,
 button,
@@ -79,10 +88,6 @@ h6 {
 
 body {
   background-color: #2b344b;
-}
-
-:root {
-  --font-family: "VAG World", sans-serif;
 }
 
 #root {
