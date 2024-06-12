@@ -1,0 +1,19 @@
+.mainContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+  width: 40rem;
+  height: 71rem;
+  margin: 3rem auto;
+  border: 2px white solid;
+  padding: 1.6875rem;
+
+  h1{
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 1.88rem;
+    line-height: 117%;
+    text-align: center;
+    color: #fff;
+  }
+}
