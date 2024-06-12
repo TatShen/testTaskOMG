@@ -1,4 +1,4 @@
-import create from 'zustand';
+import {create} from 'zustand';
 import {firstLevel, secondLevel, thirdLevel } from '../db/index'
 const LevelsStore = create((set) => ({
     firstLevel : firstLevel.words.sort((a,b) => a.length - b.length),

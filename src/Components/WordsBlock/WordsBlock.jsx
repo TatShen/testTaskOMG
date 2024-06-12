@@ -3,7 +3,7 @@ import  { useEffect, useState } from "react";
 
 import styles from './WordsBlock.module.scss'
 import LevelsStore from "../../Store/LevelsStore";
-import { Letter } from "./[letter]/Letter";
+import { Letter } from "../Letter/Letter";
 
 export const WordsBlock = () => {
     const [words, setWords] = useState([])
@@ -16,7 +16,7 @@ export const WordsBlock = () => {
                 <div key={index}>
                     <div className={styles.word}>
                         {word.split('').map((letter, i) => (
-                           <Letter key={i}/>
+                           <Letter key={i} className={styles.emptyLetter}/>
                         ))}
                     </div>
                 </div>

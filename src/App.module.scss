@@ -1,12 +1,14 @@
 .mainContainer{
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 3.5rem;
   width: 40rem;
   height: 71rem;
   margin: 3rem auto;
   border: 2px white solid;
   padding: 1.6875rem;
+  padding-bottom: 5.1rem;
 
   h1{
     font-family: var(--font-family);
