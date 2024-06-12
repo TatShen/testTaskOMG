@@ -1,0 +1,20 @@
+.enterContainer {
+  width: auto;
+  height: 2.62rem;
+  max-width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.enterLetter {
+  width: 2.625rem;
+  height: 2.625rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 1.88rem;
+  text-align: center;
+  color: #4d4d4d;
+}
