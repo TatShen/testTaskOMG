@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import LevelsStore from "../../Store/LevelsStore";
 import { getLettersSet } from "../../utils/getLettersSet";
 
@@ -6,15 +6,16 @@ import styles from "./LettersBlock.module.scss";
 import { Letter } from "../Letter/Letter";
 import EnterStore from "../../Store/EnterStore";
 import { useStore } from "zustand";
-import { Lines } from "../Lines/Lines";
+import { SvgLines } from "../Lines/SvgLines";
 
 export const LettersBlock = () => {
   const [letters, setLetters] = useState([]);
   const { words } = useStore(LevelsStore);
-  const R = 125;
+  const {setUsersWords} = useStore(EnterStore)
   const [isTracking, setIsTracking] = useState(false);
   const [hoveredElements, setHoveredElements] = useState([]);
-  const positionsRef = useRef([]);
+  const [positions, setPositions] = useState([]);
+  const R = 125;
   useEffect(() => {
     setLetters(getLettersSet(words));
   }, [words]);
@@ -22,7 +23,7 @@ export const LettersBlock = () => {
   const handleMouseDown = (e) => {
     setIsTracking(true);
     EnterStore.setState({ enter: [] });
-    positionsRef.current.push({ x: e.clientX, y: e.clientY });
+    setPositions([...positions, { x: e.clientX, y: e.clientY }]);
   };
 
   const handleMouseMove = (e) => {
@@ -41,19 +42,23 @@ export const LettersBlock = () => {
         ]);
         target.className = styles.hovered;
         EnterStore.getState().setEnter(target.textContent);
+        const rect = target.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        setPositions([...positions, { x: centerX, y: centerY}]);
       }
-      positionsRef.current.push({ x: e.clientX, y: e.clientY });
     }
   };
 
   const handleMouseUp = () => {
     setIsTracking(false);
-    EnterStore.getState().setUsersWords();
+    setUsersWords();
     hoveredElements.forEach((element) => {
       element.className = styles.letter;
     });
     setHoveredElements([]);
     EnterStore.setState({ enter: [] });
+    setPositions([])
   };
   return (
     <div
@@ -85,7 +90,7 @@ export const LettersBlock = () => {
           })}
         </div>
       </div>
-      <Lines className={styles.lines}/>
+      <SvgLines positions={positions} className={styles.lines}/>
     </div>
   );
 };
