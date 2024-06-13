@@ -47,7 +47,7 @@ export const LettersBlock = () => {
 
   const handleMouseUp = () => {
     setIsTracking(false);
-    EnterStore.getState().setUsersWord()
+    EnterStore.getState().setUsersWords()
     hoveredElements.forEach((element) => {
       element.className = styles.letter
     });

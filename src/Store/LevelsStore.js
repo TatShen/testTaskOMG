@@ -1,9 +1,7 @@
 import {create} from 'zustand';
-import {firstLevel, secondLevel, thirdLevel } from '../db/index'
+import {dataArray} from '../db/index'
 const LevelsStore = create(() => ({
-    firstLevel : firstLevel.words.sort((a,b) => a.length - b.length),
-    secondLevel : secondLevel.words.sort((a,b) => a.length - b.length),
-    thirdLevel : thirdLevel.words.sort((a,b) => a.length - b.length)
+    firstLevel : dataArray[0].sort((a,b) => a.length - b.length),
 }));
 
 
