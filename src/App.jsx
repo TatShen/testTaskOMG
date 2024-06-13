@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./App.module.scss";
 import { WordsBlock } from "./Components/WordsBlock/WordsBlock";
 import { LettersBlock } from "./Components/LettersBlock/LettersBlock";
@@ -9,19 +9,29 @@ import LevelsStore from "./Store/LevelsStore";
 import EnterStore from "./Store/EnterStore";
 
 function App() {
-  const [level, setLevel] = useState(1);
   const [isOld, setIsOld] = useState(false);
-  const { firstLevel } = useStore(LevelsStore);
-  const { usersWords } = useStore(EnterStore);
+  const { level, words, setWords, setLevel } = useStore(LevelsStore);
+  const { usersWords, clearUsersWords } = useStore(EnterStore);
+
+  useEffect(() => {
+    setWords()
+    localStorage.setItem("progress", level)
+  }, [level, setWords])
+
+  const getNextLevel = () => {
+    setLevel()
+    setWords()
+    clearUsersWords()
+  }
 
   return (
     <div className={styles.mainContainer}>
       {isOld ? <Modal /> : ""}
-      {firstLevel.length === usersWords.length ? (
+      {words.length === usersWords.length ? (
         <div className={styles.win}>
           <p>Уровень {level} пройден</p>
           <h2>Изумительно!</h2>
-          <button className={styles.next}>Уровень {level + 1}</button>
+          <button className={styles.next} onClick={getNextLevel}>Уровень {level + 1}</button>
         </div>
       ) : (
         <div className={styles.play}>

@@ -1,11 +1,19 @@
 import { create } from "zustand";
+import LevelsStore from "./LevelsStore";
 
 const EnterStore = create((set,get) => ({
   enter: [],
   usersWords: [],
   setEnter: (newEnter) =>
     set((state) => ({ enter: [...state.enter, newEnter] })),
-  setUsersWords: () => set((state) => ({ usersWords: [...state.usersWords, get().enter.join('')] })),
+  setUsersWords: () => {
+    if (LevelsStore.getState().words.some((item) => item === get().enter.join(''))){
+      set((state) => ({ usersWords: [...state.usersWords, get().enter.join('')] }))
+    }
+  },
+  clearUsersWords: function() {
+    set(() => ({ usersWords: [] }));
+  }
 }));
 
 export default EnterStore;

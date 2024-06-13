@@ -11,11 +11,11 @@ export const WordsBlock = () => {
     const [words, setWords] = useState([])
     const {usersWords} = useStore(EnterStore)
     useEffect(() => {
-       setWords (LevelsStore.getState().firstLevel)
+       setWords (LevelsStore.getState().words)
     }, [])
 
 
-    return <div className={styles.lettersBlock}>
+    return <div className={styles.wordsBlock}>
         {words.map((word, index) => (
                 <div key={index}>
                     <div className={usersWords.includes(word) ? styles.rightWord : styles.word}>

@@ -5,13 +5,15 @@ import { getLettersSet } from "../../utils/getLettersSet";
 import styles from "./LettersBlock.module.scss";
 import { Letter } from "../Letter/Letter";
 import EnterStore from "../../Store/EnterStore";
+import { useStore } from "zustand";
 
 export const LettersBlock = () => {
   const [letters, setLetters] = useState([]);
+  const {words} = useStore(LevelsStore)
   const R = 125;
   useEffect(() => {
-    setLetters(getLettersSet(LevelsStore.getState().firstLevel));
-  }, []);
+    setLetters(getLettersSet(words));
+  }, [words]);
 
   const [isTracking, setIsTracking] = useState(false);
   const [positions, setPositions] = useState([]);
@@ -53,7 +55,6 @@ export const LettersBlock = () => {
     });
     setHoveredElements([])
     EnterStore.setState({ enter: [] })
-    console.log(positions)
   };
 
   return (
