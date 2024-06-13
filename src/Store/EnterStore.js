@@ -1,9 +1,11 @@
 import { create } from "zustand";
 import LevelsStore from "./LevelsStore";
 
+const guessWords = JSON.parse(localStorage.getItem('guessWords'))
+
 const EnterStore = create((set, get) => ({
   enter: [],
-  usersWords: [],
+  usersWords: guessWords ? guessWords : [],
   setEnter: (newEnter) =>
     set((state) => ({ enter: [...state.enter, newEnter] })),
   setUsersWords: () => {
@@ -16,6 +18,8 @@ const EnterStore = create((set, get) => ({
       set((state) => ({
         usersWords: [...state.usersWords, get().enter.join("")],
       }));
+
+      localStorage.setItem('guessWords', JSON.stringify(get().usersWords))
     }
   },
   clearUsersWords: function () {

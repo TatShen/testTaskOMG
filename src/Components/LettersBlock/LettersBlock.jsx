@@ -11,13 +11,14 @@ export const LettersBlock = () => {
   const [letters, setLetters] = useState([]);
   const {words} = useStore(LevelsStore)
   const R = 125;
+  const [isTracking, setIsTracking] = useState(false);
+  const [positions, setPositions] = useState([]);
+  const [hoveredElements, setHoveredElements] = useState([]);
+
   useEffect(() => {
     setLetters(getLettersSet(words));
   }, [words]);
 
-  const [isTracking, setIsTracking] = useState(false);
-  const [positions, setPositions] = useState([]);
-  const [hoveredElements, setHoveredElements] = useState([]);
 
   const handleMouseDown = (e) => {
     setIsTracking(true);
