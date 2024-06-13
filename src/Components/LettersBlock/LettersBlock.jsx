@@ -47,6 +47,12 @@ export const LettersBlock = () => {
 
   const handleMouseUp = () => {
     setIsTracking(false);
+    EnterStore.getState().setUsersWord()
+    hoveredElements.forEach((element) => {
+      element.className = styles.letter
+    });
+    setHoveredElements([])
+    EnterStore.setState({ enter: [] })
     console.log(positions)
   };
 
@@ -74,7 +80,7 @@ export const LettersBlock = () => {
                 key={index}
                 className={styles.letter}
                 style={style}
-                letter={letter.toUpperCase()}
+                letter={letter}
               />
             );
           })}

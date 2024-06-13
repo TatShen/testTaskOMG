@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
- 
+  position: relative;
 }
 
 .lettersBlock {
@@ -32,12 +32,15 @@
   font-size: 3.56rem;
   text-align: center;
   color: #58595b;
+  cursor: pointer;
+  text-transform: capitalize;
 }
 
 .hovered {
   background-color: #e96fa4;
   border-bottom:#AF638C 6px solid;
   color: white;
+  pointer-events: none;
 }
 
 .center {
