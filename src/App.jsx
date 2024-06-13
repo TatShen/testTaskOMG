@@ -12,11 +12,28 @@ function App() {
   const [isOld, setIsOld] = useState(false);
   const { level, words, setWords, setLevel } = useStore(LevelsStore);
   const { usersWords, clearUsersWords } = useStore(EnterStore);
-
+  
   useEffect(() => {
     setWords()
     localStorage.setItem("progress", level)
   }, [level, setWords])
+
+  
+  useEffect(() => {
+    const storageHandler = () => {
+      const storedProgress = localStorage.getItem("progress");
+      const currentProgress = parseInt(level);
+      if (storedProgress && parseInt(storedProgress) > currentProgress) {
+        setIsOld(true);
+      }
+    };
+
+    window.addEventListener('storage', storageHandler);
+
+    return () => {
+      window.removeEventListener('storage', storageHandler);
+    };
+  }, [level]);
 
   const getNextLevel = () => {
     setLevel()
@@ -24,14 +41,17 @@ function App() {
     clearUsersWords()
   }
 
+  console.log(words)
+  console.log(usersWords)
+
   return (
     <div className={styles.mainContainer}>
-      {isOld ? <Modal /> : ""}
+      {isOld && <Modal />}
       {words.length === usersWords.length ? (
         <div className={styles.win}>
           <p>Уровень {level} пройден</p>
           <h2>Изумительно!</h2>
-          <button className={styles.next} onClick={getNextLevel}>Уровень {level + 1}</button>
+          <button className={styles.next} onClick={getNextLevel}>Уровень {Number(level) + 1}</button>
         </div>
       ) : (
         <div className={styles.play}>

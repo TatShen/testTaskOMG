@@ -17,7 +17,7 @@ export const Modal = () => {
             Похоже, игра открыта в нескольких вкладках браузера. Чтобы
             продолжить играть <br/>в этой вкладке, обновите страницу.
           </p>
-          <button className={styles.update}>Обновить</button>
+          <button className={styles.update} onClick={() => location.reload()}>Обновить</button>
         </div>
       </div>
     </div>
