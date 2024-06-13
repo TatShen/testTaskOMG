@@ -5,6 +5,7 @@
   justify-content: center;
   align-items: flex-end;
   position: relative;
+  
 }
 
 .lettersBlock {
@@ -52,7 +53,7 @@
   height: 0;
 }
 
-.svg {
+.lines {
   position: absolute;
   top: 0;
   left: 0;
@@ -60,12 +61,6 @@
   height: 100%;
   z-index: 3;
   pointer-events: none;
+  border: 1px solid wheat;
 }
 
-.lines {
-  position: absolute;
-  top: 0;
-  left: 0;
-  stroke-width: 1.5rem;
-  stroke: #638ec4;
-}

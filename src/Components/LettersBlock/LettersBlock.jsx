@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import LevelsStore from "../../Store/LevelsStore";
 import { getLettersSet } from "../../utils/getLettersSet";
 
@@ -6,24 +6,23 @@ import styles from "./LettersBlock.module.scss";
 import { Letter } from "../Letter/Letter";
 import EnterStore from "../../Store/EnterStore";
 import { useStore } from "zustand";
+import { Lines } from "../Lines/Lines";
 
 export const LettersBlock = () => {
   const [letters, setLetters] = useState([]);
-  const {words} = useStore(LevelsStore)
+  const { words } = useStore(LevelsStore);
   const R = 125;
   const [isTracking, setIsTracking] = useState(false);
-  const [positions, setPositions] = useState([]);
   const [hoveredElements, setHoveredElements] = useState([]);
-
+  const positionsRef = useRef([]);
   useEffect(() => {
     setLetters(getLettersSet(words));
   }, [words]);
 
-
   const handleMouseDown = (e) => {
     setIsTracking(true);
     EnterStore.setState({ enter: [] });
-    setPositions((prevLines) => [...prevLines, { x: e.clientX, y: e.clientY }])
+    positionsRef.current.push({ x: e.clientX, y: e.clientY });
   };
 
   const handleMouseMove = (e) => {
@@ -42,26 +41,24 @@ export const LettersBlock = () => {
         ]);
         target.className = styles.hovered;
         EnterStore.getState().setEnter(target.textContent);
-
       }
-      setPositions((prevLines) => [...prevLines, { x: e.clientX, y: e.clientY }])
+      positionsRef.current.push({ x: e.clientX, y: e.clientY });
     }
   };
 
   const handleMouseUp = () => {
     setIsTracking(false);
-    EnterStore.getState().setUsersWords()
+    EnterStore.getState().setUsersWords();
     hoveredElements.forEach((element) => {
-      element.className = styles.letter
+      element.className = styles.letter;
     });
-    setHoveredElements([])
-    EnterStore.setState({ enter: [] })
+    setHoveredElements([]);
+    EnterStore.setState({ enter: [] });
   };
-
   return (
     <div
       className={styles.container}
-      onMouseDown={(e) =>  handleMouseDown(e)}
+      onMouseDown={(e) => handleMouseDown(e)}
       onMouseMove={(e) => handleMouseMove(e)}
       onMouseUp={handleMouseUp}
     >
@@ -88,22 +85,7 @@ export const LettersBlock = () => {
           })}
         </div>
       </div>
-      <svg className={styles.svg}>
-        {positions.map((point, index) => {
-          if (index === 0) return null; 
-          const prevPoint = positions[index - 1]; 
-          return (
-            <line
-              className={styles.lines}
-              key={index}
-              x1={prevPoint.x}
-              y1={prevPoint.y}
-              x2={point.x}
-              y2={point.y}
-            />
-          );
-        })}
-      </svg>
+      <Lines className={styles.lines}/>
     </div>
   );
 };

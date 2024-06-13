@@ -8,6 +8,7 @@ import { useStore } from "zustand";
 import LevelsStore from "./Store/LevelsStore";
 import EnterStore from "./Store/EnterStore";
 
+
 function App() {
   const [isOld, setIsOld] = useState(false);
   const { level, words, setWords, setLevel } = useStore(LevelsStore);
@@ -42,6 +43,7 @@ function App() {
     setLevel();
     setWords();
     clearUsersWords();
+    localStorage.setItem('guessWords', JSON.stringify([]))
   };
 
   return (

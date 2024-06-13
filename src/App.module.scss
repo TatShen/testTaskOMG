@@ -21,10 +21,14 @@
       color: #fff;
     }
   }
+
+  user-select: none; 
+  -webkit-user-select: none; 
+  -moz-user-select: none; 
+  -ms-user-select: none;
 }
 
 .play {
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
