@@ -30,12 +30,15 @@ export const LettersBlock = () => {
       setR(block.offsetWidth / 2);
     }
   }, [block, width])
-  const handleMouseDown = () => {
+
+  const handleStart = (e) => {
+    e.preventDefault()
     setIsTracking(true);
     EnterStore.setState({ enter: [] });
   };
 
-  const handleMouseMove = (e) => {
+  const handleMove = (e) => {
+    e.preventDefault()
     if (isTracking) {
       const x = e.clientX;
       const y = e.clientY;
@@ -62,7 +65,7 @@ export const LettersBlock = () => {
     }
   };
 
-  const handleMouseUp = () => {
+  const handleEnd = () => {
     setIsTracking(false);
     setUsersWords();
     hoveredElements.forEach((element) => {
@@ -75,9 +78,12 @@ export const LettersBlock = () => {
   return (
     <div
       className={styles.container}
-      onMouseDown={(e) => handleMouseDown(e)}
-      onMouseMove={(e) => handleMouseMove(e)}
-      onMouseUp={handleMouseUp}
+      onMouseDown={(e) => handleStart(e)}
+      onTouchStart={(e) => handleStart(e)}
+      onMouseMove={(e) => handleMove(e)}
+      onTouchMove={(e) => handleMove(e)}
+      onMouseUp={handleEnd}
+      onTouchEnd={handleEnd}
       id="container"
       
     >
