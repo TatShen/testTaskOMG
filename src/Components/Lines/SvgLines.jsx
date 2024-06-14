@@ -1,32 +1,38 @@
 import PropTypes from "prop-types";
 
 export const SvgLines = ({ positions, className }) => {
-    if (positions.length < 2) return null;
+  if (positions.length < 2) return null;
 
-    const pathData = positions.reduce((acc, point, index) => {
-        if (index === 0) {
-          return `M ${point.x} ${point.y}`;
-        } else {
-          const prevPoint = positions[index - 1];
-          const deltaX = point.x - prevPoint.x;
-          const deltaY = point.y - prevPoint.y;
-         
-          const curve = `Q ${prevPoint.x + deltaX / 2} ${prevPoint.y + deltaY / 2} ${point.x} ${point.y}`;
-          return `${acc} ${curve}`;
-        }
-      }, "");
-      
-  return (
-    <svg width="295" height="295" className={className}>
-      <path
-        d={pathData}
-        stroke="#638ec4"
-        strokeWidth="21"
-        strokeLinecap="round"
-        fill="none"
-      />
+  const radius = 15;
+
+  const circles = positions.map((point, index) => (
+    <circle key={index} cx={point.x} cy={point.y} r={radius} fill="#638ec4" />
+));
+
+const lines = [];
+for (let i = 1; i < positions.length; i++) {
+    const prevPoint = positions[i - 1];
+    const currPoint = positions[i];
+    lines.push(
+        <line
+            key={i - 1}
+            x1={prevPoint.x}
+            y1={prevPoint.y}
+            x2={currPoint.x}
+            y2={currPoint.y}
+            stroke="#638ec4"
+            strokeWidth="21"
+            strokeLinecap="round"
+        />
+    );
+}
+
+return (
+    <svg width={280} height={280} className={className}>
+        {circles}
+        {lines}
     </svg>
-  );
+);
 };
 
 SvgLines.propTypes = {

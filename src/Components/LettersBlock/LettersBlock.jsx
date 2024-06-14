@@ -20,10 +20,9 @@ export const LettersBlock = () => {
     setLetters(getLettersSet(words));
   }, [words]);
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown = () => {
     setIsTracking(true);
     EnterStore.setState({ enter: [] });
-    setPositions([...positions, { x: e.clientX, y: e.clientY }]);
   };
 
   const handleMouseMove = (e) => {
