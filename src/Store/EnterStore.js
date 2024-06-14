@@ -6,6 +6,7 @@ const guessWords = JSON.parse(localStorage.getItem('guessWords'))
 const EnterStore = create((set, get) => ({
   enter: [],
   usersWords: guessWords ? guessWords : [],
+  positions: [],
   setEnter: (newEnter) =>
     set((state) => ({ enter: newEnter ?  [...state.enter, newEnter] : [] })),
   setUsersWords: () => {
@@ -26,6 +27,9 @@ const EnterStore = create((set, get) => ({
     set(() => ({ usersWords: [] }));
     localStorage.setItem('guessWords', JSON.stringify([]))
   },
+  setPositions: (newPos) =>
+    set((state) => ({ positions: [...state.positions, newPos]})),
+  clearPositions: () => set({ positions: [] }),
 }));
 
 export default EnterStore;

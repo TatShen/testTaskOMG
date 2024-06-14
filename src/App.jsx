@@ -7,6 +7,7 @@ import { Modal } from "./Components/Modal/Modal";
 import { useStore } from "zustand";
 import LevelsStore from "./Store/LevelsStore";
 import EnterStore from "./Store/EnterStore";
+import Canvas from "./Components/Lines/Canvas";
 
 function App() {
   const [isOld, setIsOld] = useState(false);
@@ -46,8 +47,10 @@ function App() {
 
   return (
     <>
+    
       {isOld && <Modal />}
-      <div className={styles.mainContainer}>
+      <div className={styles.mainContainer} id="mainContainer">
+      
         {words.length === usersWords.length ? (
           <div className={styles.win}>
             <p>Уровень {level} пройден</p>
@@ -64,6 +67,7 @@ function App() {
             <LettersBlock />
           </div>
         )}
+        <Canvas className={styles.canvas}/>
       </div>
     </>
   );
