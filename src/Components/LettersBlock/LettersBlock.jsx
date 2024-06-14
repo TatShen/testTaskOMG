@@ -27,18 +27,16 @@ export const LettersBlock = () => {
 
   useEffect(() => {
     if (block) {
-      setR(block.offsetWidth / 2 - 10);
+      setR(block.offsetWidth / 2 - 5);
     }
   }, [block, width])
 
-  const handleStart = (e) => {
-    e.preventDefault()
+  const handleStart = () => {
     setIsTracking(true);
     EnterStore.setState({ enter: [] });
   };
 
   const handleMove = (e) => {
-    e.preventDefault()
     if (isTracking) {
       const x = e.clientX;
       const y = e.clientY;
@@ -78,12 +76,9 @@ export const LettersBlock = () => {
   return (
     <div
       className={styles.container}
-      onMouseDown={(e) => handleStart(e)}
-      onTouchStart={(e) => handleStart(e)}
-      onMouseMove={(e) => handleMove(e)}
-      onTouchMove={(e) => handleMove(e)}
-      onMouseUp={handleEnd}
-      onTouchEnd={handleEnd}
+      onPointerDown={(e) => handleStart(e)}
+      onPointerMove={(e) => handleMove(e)}
+      onPointerUp={handleEnd}
       id="container"
       
     >

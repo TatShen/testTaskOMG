@@ -8,7 +8,6 @@ import { useStore } from "zustand";
 import LevelsStore from "./Store/LevelsStore";
 import EnterStore from "./Store/EnterStore";
 
-
 function App() {
   const [isOld, setIsOld] = useState(false);
   const { level, words, setWords, setLevel } = useStore(LevelsStore);
@@ -23,7 +22,7 @@ function App() {
     const storageHandler = () => {
       const storedProgress = localStorage.getItem("progress");
       const currentProgress = parseInt(level);
-      const storedGuessWords = JSON.parse(localStorage.getItem("guessWords"))
+      const storedGuessWords = JSON.parse(localStorage.getItem("guessWords"));
       if (
         (storedProgress && parseInt(storedProgress) > currentProgress) ||
         (storedGuessWords && usersWords.length < storedGuessWords.length)
@@ -46,25 +45,27 @@ function App() {
   };
 
   return (
-    <div className={styles.mainContainer}>
+    <>
       {isOld && <Modal />}
-      {words.length === usersWords.length ? (
-        <div className={styles.win}>
-          <p>Уровень {level} пройден</p>
-          <h2>Изумительно!</h2>
-          <button className={styles.next} onClick={getNextLevel}>
-            Уровень {Number(level) + 1}
-          </button>
-        </div>
-      ) : (
-        <div className={styles.play}>
-          <h1>Уровень {level}</h1>
-          <WordsBlock />
-          <Enter />
-          <LettersBlock />
-        </div>
-      )}
-    </div>
+      <div className={styles.mainContainer}>
+        {words.length === usersWords.length ? (
+          <div className={styles.win}>
+            <p>Уровень {level} пройден</p>
+            <h2>Изумительно!</h2>
+            <button className={styles.next} onClick={getNextLevel}>
+              Уровень {Number(level) + 1}
+            </button>
+          </div>
+        ) : (
+          <div className={styles.play}>
+            <h1>Уровень {level}</h1>
+            <WordsBlock />
+            <Enter />
+            <LettersBlock />
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

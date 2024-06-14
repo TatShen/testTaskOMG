@@ -88,15 +88,18 @@ h6 {
 
 body {
   background-color: #2b344b;
+  position: fixed;
+  height: 100svh;
+  overflow: hidden;
 }
 
 #root {
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   margin: 0 auto;
   text-align: center;
-  overflow: hidden;
-  background-color: #2b344b;
   padding: 1.6875rem;
   padding-bottom: 5.1rem;
 }
+
+

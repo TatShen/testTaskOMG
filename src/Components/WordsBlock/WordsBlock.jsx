@@ -12,7 +12,7 @@ export const WordsBlock = () => {
     const {usersWords} = useStore(EnterStore)
     useEffect(() => {
        setWords (LevelsStore.getState().words)
-    }, [])
+    }, [words])
 
 
     return <div className={styles.wordsBlock}>
