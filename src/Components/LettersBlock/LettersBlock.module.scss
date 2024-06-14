@@ -1,6 +1,6 @@
 .container {
-  width: 80%;
-  height: 40%;
+  width: 40vh;
+  height: 40vh;
   max-height: auto;
   display: flex;
   justify-content: center;
@@ -10,12 +10,23 @@
 
 .lettersBlock {
   position: relative;
-  width: 18.5rem;
-  height:18.5rem;
+  width: 17.5rem;
+  height:17.5rem;
   border: 1.5rem solid #3e4a68;
   border-radius: 50%;
   z-index: 2;
-  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center {
+  position: absolute;
+  top: 60%;
+  left: 60%;
+  transform: translate(-55%, -55%);
+  width: 0;
+  height: 0;
 }
 
 .letter,
@@ -23,13 +34,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 6rem;
-  height: 6rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
   background-color: white;
   border-bottom: #a6a8ab 6px solid;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
-  font-family: var(--font-family);
   font-weight: 700;
   font-size: 3.56rem;
   text-align: center;
@@ -45,14 +55,7 @@
   pointer-events: none;
 }
 
-.center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 0;
-  height: 0;
-}
+
 
 .lines {
   position: absolute;

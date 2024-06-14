@@ -27,7 +27,7 @@ export const LettersBlock = () => {
 
   useEffect(() => {
     if (block) {
-      setR(block.offsetWidth / 2);
+      setR(block.offsetWidth / 2 - 10);
     }
   }, [block, width])
 
