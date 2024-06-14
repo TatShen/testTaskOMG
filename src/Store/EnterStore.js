@@ -7,23 +7,24 @@ const EnterStore = create((set, get) => ({
   enter: [],
   usersWords: guessWords ? guessWords : [],
   setEnter: (newEnter) =>
-    set((state) => ({ enter: [...state.enter, newEnter] })),
+    set((state) => ({ enter: newEnter ?  [...state.enter, newEnter] : [] })),
   setUsersWords: () => {
+    const word = get().enter.join("")
     if (
       LevelsStore.getState().words.some(
-        (item) => item === get().enter.join("")
+        (item) => item === word
       ) &&
-      !get().usersWords.includes(get().enter.join(""))
+      !get().usersWords.includes(word)
     ) {
       set((state) => ({
-        usersWords: [...state.usersWords, get().enter.join("")],
+        usersWords: [...state.usersWords, word],
       }));
-
-      localStorage.setItem('guessWords', JSON.stringify(get().usersWords))
     }
+    localStorage.setItem('guessWords', JSON.stringify(get().usersWords))
   },
   clearUsersWords: function () {
     set(() => ({ usersWords: [] }));
+    localStorage.setItem('guessWords', JSON.stringify([]))
   },
 }));
 

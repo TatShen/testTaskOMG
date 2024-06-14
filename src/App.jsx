@@ -43,7 +43,6 @@ function App() {
     setLevel();
     setWords();
     clearUsersWords();
-    localStorage.setItem('guessWords', JSON.stringify([]))
   };
 
   return (

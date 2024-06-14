@@ -11,7 +11,7 @@ import { SvgLines } from "../Lines/SvgLines";
 export const LettersBlock = () => {
   const [letters, setLetters] = useState([]);
   const { words } = useStore(LevelsStore);
-  const {setUsersWords} = useStore(EnterStore)
+  const {setUsersWords, setEnter} = useStore(EnterStore)
   const [isTracking, setIsTracking] = useState(false);
   const [hoveredElements, setHoveredElements] = useState([]);
   const [positions, setPositions] = useState([]);
@@ -19,7 +19,6 @@ export const LettersBlock = () => {
   useEffect(() => {
     setLetters(getLettersSet(words));
   }, [words]);
-
   const handleMouseDown = () => {
     setIsTracking(true);
     EnterStore.setState({ enter: [] });
@@ -56,7 +55,7 @@ export const LettersBlock = () => {
       element.className = styles.letter;
     });
     setHoveredElements([]);
-    EnterStore.setState({ enter: [] });
+    setEnter()
     setPositions([])
   };
   return (
