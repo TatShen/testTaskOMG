@@ -1,18 +1,21 @@
 .container {
-  width: 90%;
-  height: 24rem;
+  width: 80%;
+  height: 40%;
+  max-height: auto;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
+  position: relative;
 }
 
 .lettersBlock {
   position: relative;
-  width: 18.4rem;
-  height: 18.4rem;
+  width: 18.5rem;
+  height:18.5rem;
   border: 1.5rem solid #3e4a68;
   border-radius: 50%;
   z-index: 2;
+  margin-top: 1rem;
 }
 
 .letter,
@@ -37,7 +40,7 @@
 
 .hovered {
   background-color: #e96fa4;
-  border-bottom:#AF638C 6px solid;
+  border-bottom: #af638c 6px solid;
   color: white;
   pointer-events: none;
 }
@@ -62,3 +65,24 @@
   opacity: 0.8;
 }
 
+@media screen and (max-width: 612px) {
+  .container{
+    width: 18rem;
+    height: 18rem;
+  }
+
+  .lettersBlock{
+    width: 16rem;
+    height: 16rem;
+  }
+  .center{
+    top: 60%;
+    left: 60%;
+  }
+  .letter,
+  .hovered {
+    width: 4.5rem;
+    height: 4.5rem;
+    font-size: 2.56rem;
+  }
+}

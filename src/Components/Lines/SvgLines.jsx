@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 export const SvgLines = ({ positions, className }) => {
   if (positions.length < 2) return null;
 
-  const radius = 15;
+  const radius = 12;
 
   const circles = positions.map((point, index) => (
     <circle key={index} cx={point.x} cy={point.y} r={radius} fill="#638ec4" />

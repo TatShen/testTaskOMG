@@ -7,18 +7,29 @@ import { Letter } from "../Letter/Letter";
 import EnterStore from "../../Store/EnterStore";
 import { useStore } from "zustand";
 import { SvgLines } from "../Lines/SvgLines";
+import { useResize } from "../../hooks/useResize";
 
 export const LettersBlock = () => {
   const [letters, setLetters] = useState([]);
   const { words } = useStore(LevelsStore);
-  const {setUsersWords, setEnter} = useStore(EnterStore)
+  const { setUsersWords, setEnter } = useStore(EnterStore);
   const [isTracking, setIsTracking] = useState(false);
   const [hoveredElements, setHoveredElements] = useState([]);
   const [positions, setPositions] = useState([]);
-  const R = 125;
+  const block = document.getElementById("lettersBlock");
+  const width = useResize()
+
+  const [R, setR] = useState();
   useEffect(() => {
     setLetters(getLettersSet(words));
+    
   }, [words]);
+
+  useEffect(() => {
+    if (block) {
+      setR(block.offsetWidth / 2);
+    }
+  }, [block, width])
   const handleMouseDown = () => {
     setIsTracking(true);
     EnterStore.setState({ enter: [] });
@@ -40,10 +51,13 @@ export const LettersBlock = () => {
         ]);
         target.className = styles.hovered;
         EnterStore.getState().setEnter(target.textContent);
-        const rect = target.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        setPositions([...positions, { x: centerX, y: centerY}]);
+        const container = document.getElementById("container");
+        const blockRect = container.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+
+      const relativeX = targetRect.left - blockRect.left + targetRect.width / 2;
+      const relativeY = targetRect.top - blockRect.top + targetRect.height / 2;
+        setPositions([...positions, { x: relativeX, y: relativeY }]);
       }
     }
   };
@@ -55,7 +69,7 @@ export const LettersBlock = () => {
       element.className = styles.letter;
     });
     setHoveredElements([]);
-    setEnter()
+    setEnter();
     setPositions([])
   };
   return (
@@ -64,8 +78,10 @@ export const LettersBlock = () => {
       onMouseDown={(e) => handleMouseDown(e)}
       onMouseMove={(e) => handleMouseMove(e)}
       onMouseUp={handleMouseUp}
+      id="container"
+      
     >
-      <div className={styles.lettersBlock}>
+      <div className={styles.lettersBlock} id="lettersBlock" >
         <div className={styles.center}>
           {letters.map((letter, index) => {
             const angle = (index / letters.length) * 2 * Math.PI - Math.PI / 2;
@@ -88,7 +104,7 @@ export const LettersBlock = () => {
           })}
         </div>
       </div>
-      <SvgLines positions={positions} className={styles.lines}/>
+      <SvgLines positions={positions} className={styles.lines} />
     </div>
   );
 };
