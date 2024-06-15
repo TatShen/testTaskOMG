@@ -5,10 +5,8 @@ import EnterStore from "../../Store/EnterStore";
 import styles from './WinScreen.module.scss'
 
 export const WinScreen = () => {
-    const {level, setLevel, setWords, words} = useStore(LevelsStore)
-    const { clearUsersWords, usersWords} = useStore(EnterStore)
-    console.log("user", usersWords)
-    console.log("word", words)
+    const {level, setLevel, setWords} = useStore(LevelsStore)
+    const { clearUsersWords} = useStore(EnterStore)
     const getNextLevel = () => {
         setLevel();
         setWords();
