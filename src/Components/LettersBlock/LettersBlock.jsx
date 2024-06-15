@@ -31,7 +31,6 @@ export const LettersBlock = () => {
 
   const handleStart = () => {
     setIsTracking(true);
-    EnterStore.setState({ enter: [] });
   };
 
   const handleMove = (e) => {
@@ -77,10 +76,14 @@ export const LettersBlock = () => {
   return (
     <div
       className={styles.container}
-      onPointerDown={(e) => handleStart(e)}
-      onPointerMove={(e) => handleMove(e)}
-      onPointerUp={handleEnd}
-      id="container"
+      onMouseDown={(e) => handleStart(e)}
+      onTouchStart={(e) => handleStart(e.touches[0])}
+      onMouseMove={(e) => handleMove(e)}
+      onTouchMove={(e) => handleMove(e.touches[0])}
+      onMouseUp={handleEnd}
+      onTouchEnd={handleEnd}
+      onMouseLeave={handleEnd}
+      onTouchCancel={handleEnd}
     >
       <div className={styles.lettersBlock} ref={blockRef}>
         <div className={styles.center}>
