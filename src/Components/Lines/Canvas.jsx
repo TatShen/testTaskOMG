@@ -1,10 +1,13 @@
 import { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { getCoordinates } from "../../utils/getCoordinates";
-import { checkElementUnderCursor } from "../../utils/checkElementUnderCursor";
+import { checkElementUnderCursor, returnDefaultStyle } from "../../utils/checkElementUnderCursor";
+import { useStore } from "zustand";
+import EnterStore from "../../Store/EnterStore";
 
 const Canvas = ({ className}) => {
   const canvasRef = useRef(null);
+  const {clearPositions, setEnter} = useStore(EnterStore)
   const [drawing, setDrawing] = useState(false);
   const [lines, setLines] = useState([]);
   const [startPoint, setStartPoint] = useState({ x: 0, y: 0 });
@@ -26,6 +29,7 @@ const Canvas = ({ className}) => {
     ctx.lineWidth = 15;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
+
   }, []);
 
   const handleStart = (e) => {
@@ -33,6 +37,7 @@ const Canvas = ({ className}) => {
     if (letterCoordinates) {
       setStartPoint(letterCoordinates);
       setEndPoint(letterCoordinates);
+      setEnter
       setDrawing(true);
     }
   };
@@ -53,8 +58,16 @@ const Canvas = ({ className}) => {
   };
 
   const handleEnd = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
     if (drawing) {
-      setLines([...lines, { startPoint, endPoint }]);
+      setLines([]);
+      setStartPoint({ x: 0, y: 0 })
+      setEndPoint({ x: 0, y: 0 })
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      returnDefaultStyle()
+      clearPositions()
+      setEnter()
       setDrawing(false);
     }
   };
