@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
 import styles from "./App.module.scss";
-import { WordsBlock } from "./Components/WordsBlock/WordsBlock";
-import { LettersBlock } from "./Components/LettersBlock/LettersBlock";
-import { Enter } from "./Components/Enter/Enter";
 import { Modal } from "./Components/Modal/Modal";
 import { useStore } from "zustand";
 import LevelsStore from "./Store/LevelsStore";
 import EnterStore from "./Store/EnterStore";
 import Canvas from "./Components/Lines/Canvas";
+import { WinScreen } from "./Components/WinScreen/WinScreen";
+import { PlayScreen } from "./Components/PlayScreen/PlayScreen";
 
 function App() {
-  const [isOld, setIsOld] = useState(false);
-  const { level, words, setWords, setLevel } = useStore(LevelsStore);
-  const { usersWords, clearUsersWords } = useStore(EnterStore);
+  const [isOpenInOtherTab, setIsOpenInOtherTab] = useState(false);
+  const { level, words, setWords } = useStore(LevelsStore);
+  const { usersWords } = useStore(EnterStore);
+  const [ isWin, setIsWin ] = useState(false);
 
   useEffect(() => {
     setWords();
     localStorage.setItem("progress", level);
   }, [level, setWords]);
+
+  useEffect(() => {
+    setIsWin(words.length === usersWords.length);
+  }, [setIsWin, usersWords.length, words.length]);
 
   useEffect(() => {
     const storageHandler = () => {
@@ -28,7 +32,7 @@ function App() {
         (storedProgress && parseInt(storedProgress) > currentProgress) ||
         (storedGuessWords && usersWords.length < storedGuessWords.length)
       ) {
-        setIsOld(true);
+        setIsOpenInOtherTab(true);
       }
     };
 
@@ -39,35 +43,12 @@ function App() {
     };
   }, [level, usersWords.length]);
 
-  const getNextLevel = () => {
-    setLevel();
-    setWords();
-    clearUsersWords();
-  };
-
   return (
     <>
-    
-      {isOld && <Modal />}
+      {isOpenInOtherTab && <Modal />}
       <div className={styles.mainContainer} id="mainContainer">
-      
-        {words.length === usersWords.length ? (
-          <div className={styles.win}>
-            <p>Уровень {level} пройден</p>
-            <h2>Изумительно!</h2>
-            <button className={styles.next} onClick={getNextLevel}>
-              Уровень {Number(level) + 1}
-            </button>
-          </div>
-        ) : (
-          <div className={styles.play}>
-            <h1>Уровень {level}</h1>
-            <WordsBlock />
-            <Enter />
-            <LettersBlock />
-          </div>
-        )}
-        <Canvas className={styles.canvas}/>
+        {isWin ? <WinScreen /> : <PlayScreen />}
+        <Canvas className={styles.canvas} />
       </div>
     </>
   );

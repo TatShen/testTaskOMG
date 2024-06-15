@@ -10,7 +10,7 @@ export const Modal = () => {
             <img src={ribbon} alt="ribbon"></img>
             <p>Две вкладки <br/>с игрой?</p>
           </div>
-          <button className={styles.cancel}>
+          <button className={styles.cancel} onClick={() => location.reload()}>
             <img src={cancel} alt="cancel"></img>
           </button>
           <p>
