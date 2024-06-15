@@ -12,19 +12,22 @@ export const WordsBlock = () => {
   const wordsBlockRef = useRef(null);
   const [shouldScrollToFirstWord, setShouldScrollToFirstWord] = useState(false);
   const wordsBlockElement = wordsBlockRef.current;
-  
-  useEffect(() => {
-    setWords (LevelsStore.getState().words)
- }, [words])
+  const [usersScroll, setUsersScroll] = useState(false);
 
- useEffect(() => {
+  useEffect(() => {
+    setWords(LevelsStore.getState().words);
+  }, [words]);
+
+  useEffect(() => {
     if (!wordsBlockElement) return;
     const wordElements = wordsBlockElement.querySelectorAll(`.${styles.word}`);
-    const observer = new IntersectionObserver(entries => {
-      const allWordsVisible = Array.from(entries).every(entry => entry.isIntersecting);
+    const observer = new IntersectionObserver((entries) => {
+      const allWordsVisible = Array.from(entries).every(
+        (entry) => entry.isIntersecting
+      );
       setShouldScrollToFirstWord(!allWordsVisible);
     });
-    wordElements.forEach(element => {
+    wordElements.forEach((element) => {
       observer.observe(element);
     });
     return () => {
@@ -33,31 +36,41 @@ export const WordsBlock = () => {
   }, [words, usersWords, wordsBlockElement]);
 
   useEffect(() => {
-    if (shouldScrollToFirstWord && wordsBlockElement) {
-      const firstWordElement = wordsBlockElement.querySelector(`.${styles.word}`);
+    if (shouldScrollToFirstWord && wordsBlockElement && !usersScroll) {
+      const firstWordElement = wordsBlockElement.querySelector(
+        `.${styles.word}`
+      );
       if (firstWordElement) {
         wordsBlockElement.scrollTo({
           top: firstWordElement.offsetTop - wordsBlockElement.offsetTop,
-          behavior: 'smooth'
+          behavior: "smooth",
         });
       }
     }
-  }, [shouldScrollToFirstWord, wordsBlockElement]);
- 
+  }, [shouldScrollToFirstWord, usersScroll, wordsBlockElement]);
 
   return (
-    <div className={styles.wordsBlock} ref={wordsBlockRef} onScroll={() => setTimeout(() => setShouldScrollToFirstWord(true), 1500)}>
+    <div
+      className={styles.wordsBlock}
+      ref={wordsBlockRef}
+      onScroll={() => setUsersScroll(true)}
+    >
       {words.map((word, index) => (
-        <div key={index}>
-          <div
-            className={
-              usersWords.includes(word) ? styles.rightWord : styles.word
-            }
-          >
-            {word.split("").map((letter, i) => (
-              <Letter key={i} className={styles.emptyLetter} letter={letter} />
-            ))}
-          </div>
+        <div
+          className={usersWords.includes(word) ? styles.rightWord : styles.word}
+          key={index}
+        >
+          {word.split("").map((letter, i) => (
+            <Letter
+              key={i}
+              className={
+                usersWords.includes(word)
+                  ? styles.rightLetter
+                  : styles.emptyLetter
+              }
+              letter={letter}
+            />
+          ))}
         </div>
       ))}
     </div>
