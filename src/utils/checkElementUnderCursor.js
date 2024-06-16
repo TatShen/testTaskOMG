@@ -15,7 +15,6 @@ export const checkElementUnderCursor = (e, ref) => {
     const spanRect = element.getBoundingClientRect();
     const spanX = spanRect.left - blockRect.left + spanRect.width / 2;
     const spanY = spanRect.top - blockRect.top + spanRect.height / 2;
-    
     if (!positions?.find((item) => item.x === spanX && item.y === spanY)) {
       setPositions({ x: spanX, y: spanY });
       setEnter(element.textContent)

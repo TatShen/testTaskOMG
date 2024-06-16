@@ -7,12 +7,13 @@ import EnterStore from "../../Store/EnterStore";
 
 const Canvas = ({ className}) => {
   const canvasRef = useRef(null);
-  const {clearPositions, setEnter} = useStore(EnterStore)
+  const {clearPositions, setEnter, setUsersWords} = useStore(EnterStore)
   const [drawing, setDrawing] = useState(false);
   const [lines, setLines] = useState([]);
   const [startPoint, setStartPoint] = useState({ x: 0, y: 0 });
   const [endPoint, setEndPoint] = useState({ x: 0, y: 0 });
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -37,7 +38,6 @@ const Canvas = ({ className}) => {
     if (letterCoordinates) {
       setStartPoint(letterCoordinates);
       setEndPoint(letterCoordinates);
-      setEnter
       setDrawing(true);
     }
   };
@@ -66,6 +66,7 @@ const Canvas = ({ className}) => {
       setEndPoint({ x: 0, y: 0 })
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       returnDefaultStyle()
+      setUsersWords()
       clearPositions()
       setEnter()
       setDrawing(false);
