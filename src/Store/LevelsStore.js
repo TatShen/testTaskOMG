@@ -1,17 +1,22 @@
-import {create} from 'zustand';
-import {dataArray} from '../db/index'
+import { create } from "zustand";
+import { dataArray } from "../db/index";
 
-const level = localStorage.getItem("progress")
+const level = localStorage.getItem("progress");
 const LevelsStore = create((set, get) => ({
-    level: level ? level : 1, 
-    words: [],
-    setWords: () => {
-        const level = get().level;
-        const index = (level - 1) % 3;
-        set(() => ({ words: dataArray[index].slice().sort((a, b) => a.length - b.length) }));
-    },
-    setLevel: () => set(() => ({level: Number(get().level) +1}))
+  level: level ? level : 1,
+  words: [],
+  isActiveTab: true,
+  tabsId: "",
+  setWords: () => {
+    const level = get().level;
+    const index = (level - 1) % 3;
+    set(() => ({
+      words: dataArray[index].slice().sort((a, b) => a.length - b.length),
+    }));
+  },
+  setLevel: () => set(() => ({ level: Number(get().level) + 1 })),
+  setIsActiveTab: (value) => set(() => ({ isActiveTab: value })),
+  setTabsId: (value) => set(() => ({ tabsId: value })),
 }));
 
-
-export default LevelsStore
+export default LevelsStore;

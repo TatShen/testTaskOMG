@@ -16,6 +16,7 @@
     "pointer-events-polyfill": "^0.4.4-pre",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "uuid": "^10.0.0",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
