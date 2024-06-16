@@ -12,15 +12,15 @@ export const LettersBlock = () => {
   const { words } = useStore(LevelsStore);
   const blockRef = useRef(null);
   const width = useResize();
-
   const [R, setR] = useState();
+
   useEffect(() => {
     setLetters(getLetters(words));
   }, [words]);
 
   useEffect(() => {
     if (blockRef.current) {
-      setR(blockRef.current.offsetWidth / 2 - 5);
+      setR(blockRef.current.offsetWidth / 2);
     }
   }, [blockRef, width]);
 
@@ -33,8 +33,8 @@ export const LettersBlock = () => {
         <div className={styles.center} id="center">
           {letters.map((letter, index) => {
             const angle = (index / letters.length) * 2 * Math.PI - Math.PI / 2;
-            const x = R * Math.cos(angle) - 95 / 2;
-            const y = R * Math.sin(angle) - 95 / 2;
+            const x = R * Math.cos(angle) - R / 4 ;
+            const y = R * Math.sin(angle) - R / 4 ;
             const style = {
               position: "absolute",
               left: `${x}px`,
