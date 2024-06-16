@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'VAG World'; 
-  src: url('../public/fonts/vagWorldBold.woff2') format('woff2');
+  src: url('/fonts/vagWorldBold.woff2') format('woff2');
   font-weight: bold;
   font-style: normal;
 }
@@ -38,7 +38,6 @@ html,
 body {
   height: 100%;
   width: 100%;
-  font-size: 100%;
   line-height: 1;
   font-size: 14px;
   -ms-text-size-adjust: 100%;

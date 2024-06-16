@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import LevelsStore from "../../Store/LevelsStore";
-import { getLettersSet } from "../../utils/getLettersSet";
+import { getLetters } from "../../utils/getLetters";
 
 import styles from "./LettersBlock.module.scss";
 import { Letter } from "../Letter/Letter";
@@ -15,7 +15,7 @@ export const LettersBlock = () => {
 
   const [R, setR] = useState();
   useEffect(() => {
-    setLetters(getLettersSet(words));
+    setLetters(getLetters(words));
   }, [words]);
 
   useEffect(() => {

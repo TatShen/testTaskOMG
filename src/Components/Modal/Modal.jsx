@@ -1,5 +1,5 @@
-import ribbon from "../../../public/ribbon.svg";
-import cancel from "../../../public/cancel.svg";
+import ribbon from "/ribbon.svg";
+import cancel from "/cancel.svg";
 import styles from "./Modal.module.scss";
 export const Modal = () => {
   return (
