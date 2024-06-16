@@ -21,7 +21,6 @@ export const checkElementUnderCursor = (e, ref) => {
       element.classList.add(styles.hovered);
       return { x: spanX, y: spanY };
     }
-    
   }
 
   return null;

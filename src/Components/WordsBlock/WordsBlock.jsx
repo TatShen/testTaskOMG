@@ -11,7 +11,6 @@ export const WordsBlock = () => {
   const { usersWords } = useStore(EnterStore);
   const wordsBlockRef = useRef(null);
   const [shouldScrollToFirstWord, setShouldScrollToFirstWord] = useState(false);
-  const [usersScroll, setUsersScroll] = useState(false)
   const wordsBlockElement = wordsBlockRef.current;
 
   useEffect(() => {
@@ -30,14 +29,13 @@ export const WordsBlock = () => {
     wordElements.forEach((element) => {
       observer.observe(element);
     });
-    setUsersScroll(false)
     return () => {
       observer.disconnect();
     };
   }, [words, usersWords, wordsBlockElement, shouldScrollToFirstWord]);
 
   useEffect(() => {
-    if (shouldScrollToFirstWord && wordsBlockElement && !usersScroll ) {
+    if (shouldScrollToFirstWord && wordsBlockElement ) {
       const firstWordElement = wordsBlockElement.querySelector(
         `.${styles.word}`
       );
@@ -48,18 +46,13 @@ export const WordsBlock = () => {
         });
       }
     }
-  }, [shouldScrollToFirstWord, usersScroll, wordsBlockElement]);
+  }, [shouldScrollToFirstWord,  wordsBlockElement]);
 
-  const handleScroll = () => {
-    setUsersScroll(true)
-    setTimeout(() => setShouldScrollToFirstWord(true), 1500)
-  }
 
   return (
     <div
       className={styles.wordsBlock}
       ref={wordsBlockRef}
-      onScroll={ handleScroll}
     >
       {words.map((word, index) => (
         <div

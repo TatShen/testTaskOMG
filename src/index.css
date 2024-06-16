@@ -94,12 +94,11 @@ body {
 }
 
 #root {
+  position: fixed;
   width: 100vw;
   height: 100svh;
   margin: 0 auto;
   text-align: center;
-  padding: 1.6875rem;
-  padding-bottom: 0;
 }
 
 
