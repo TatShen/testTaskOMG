@@ -4,7 +4,6 @@ import { Modal } from "./Components/Modal/Modal";
 import { useStore } from "zustand";
 import LevelsStore from "./Store/LevelsStore";
 import EnterStore from "./Store/EnterStore";
-import Canvas from "./Components/Lines/Canvas";
 import { WinScreen } from "./Components/WinScreen/WinScreen";
 import { PlayScreen } from "./Components/PlayScreen/PlayScreen";
 
@@ -48,7 +47,6 @@ function App() {
       {isOpenInOtherTab && <Modal />}
       <div className={styles.mainContainer} id="mainContainer">
         {isWin ? <WinScreen /> : <PlayScreen />}
-        <Canvas className={styles.canvas} />
       </div>
     </>
   );

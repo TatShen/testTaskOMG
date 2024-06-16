@@ -1,11 +1,11 @@
 .container {
-  width: 45vh;
-  height: 45vh;
-  max-height: auto;
+  width: 45svh;
+  height: 45svh;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  margin-bottom: 1.1rem;
 }
 
 .lettersBlock {
@@ -14,7 +14,6 @@
   height:17.5rem;
   border: 1.5rem solid #3e4a68;
   border-radius: 50%;
-  z-index: 2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,9 +21,9 @@
 
 .center {
   position: absolute;
-  top: 60%;
-  left: 60%;
-  transform: translate(-55%, -55%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 0;
   height: 0;
 }
@@ -57,15 +56,6 @@
 
 
 
-.lines {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-  pointer-events: none;
-}
 
 @media screen and (max-width: 612px) {
   .container{
@@ -74,12 +64,8 @@
   }
 
   .lettersBlock{
-    width: 14.5rem;
-    height: 14.5rem;
-  }
-  .center{
-    top: 60%;
-    left: 60%;
+    width: 14rem;
+    height: 14rem;
   }
   .letter,
   .hovered {

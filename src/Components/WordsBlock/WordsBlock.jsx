@@ -12,7 +12,7 @@ export const WordsBlock = () => {
   const wordsBlockRef = useRef(null);
   const [shouldScrollToFirstWord, setShouldScrollToFirstWord] = useState(false);
   const wordsBlockElement = wordsBlockRef.current;
-
+  
   useEffect(() => {
     setWords(LevelsStore.getState().words);
   }, [words]);
@@ -20,6 +20,7 @@ export const WordsBlock = () => {
   useEffect(() => {
     if (!wordsBlockElement) return;
     const wordElements = wordsBlockElement.querySelectorAll(`.${styles.word}`);
+   
     const observer = new IntersectionObserver((entries) => {
       const allWordsVisible = Array.from(entries).every(
         (entry) => entry.isIntersecting
@@ -32,7 +33,7 @@ export const WordsBlock = () => {
     return () => {
       observer.disconnect();
     };
-  }, [words, usersWords, wordsBlockElement]);
+  }, [words, usersWords, wordsBlockElement, shouldScrollToFirstWord]);
 
   useEffect(() => {
     if (shouldScrollToFirstWord && wordsBlockElement ) {
@@ -46,7 +47,9 @@ export const WordsBlock = () => {
         });
       }
     }
+    
   }, [shouldScrollToFirstWord, wordsBlockElement]);
+
 
   return (
     <div
