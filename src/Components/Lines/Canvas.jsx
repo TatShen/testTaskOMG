@@ -1,13 +1,19 @@
 import { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { getCoordinates } from "../../utils/getCoordinates";
-import { checkElementUnderCursor, returnDefaultStyle } from "../../utils/checkElementUnderCursor";
+import {
+  checkElementUnderCursor,
+  returnDefaultStyle,
+} from "../../utils/checkElementUnderCursor";
 import { useStore } from "zustand";
 import EnterStore from "../../Store/EnterStore";
+import styles from "../LettersBlock/LettersBlock.module.scss";
+import { getElementByCenterCoordinates } from "../../utils/getElement";
 
-const Canvas = ({ className}) => {
+const Canvas = ({ className }) => {
   const canvasRef = useRef(null);
-  const {clearPositions, setEnter, setUsersWords} = useStore(EnterStore)
+  const { clearPositions, setEnter, setUsersWords, setPositions } =
+    useStore(EnterStore);
   const [drawing, setDrawing] = useState(false);
   const [lines, setLines] = useState([]);
   const [startPoint, setStartPoint] = useState({ x: 0, y: 0 });
@@ -30,11 +36,10 @@ const Canvas = ({ className}) => {
     ctx.lineWidth = 15;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-
   }, []);
 
   const handleStart = (e) => {
-    const letterCoordinates = checkElementUnderCursor(e, canvasRef); 
+    const letterCoordinates = checkElementUnderCursor(e, canvasRef);
     if (letterCoordinates) {
       setStartPoint(letterCoordinates);
       setEndPoint(letterCoordinates);
@@ -46,7 +51,7 @@ const Canvas = ({ className}) => {
     if (drawing) {
       const coordinates = getCoordinates(e, canvasRef);
       const letterCoordinates = checkElementUnderCursor(e, canvasRef);
-      if (letterCoordinates) {
+      if (letterCoordinates && !letterCoordinates.element) {
         setLines([...lines, { startPoint, endPoint: letterCoordinates }]);
         setStartPoint(letterCoordinates);
         setEndPoint(letterCoordinates);
@@ -54,25 +59,44 @@ const Canvas = ({ className}) => {
         setEndPoint(coordinates);
       }
       draw();
+      if (lines.length > 0 && letterCoordinates) {
+        const lastLine = [...lines].pop();
+        if (
+          JSON.stringify(lastLine?.startPoint) ===
+          JSON.stringify({ x: letterCoordinates.x, y: letterCoordinates.y })
+        ) {
+          setLines(lines.slice(0, lines.length - 1));
+          setStartPoint(lastLine?.startPoint);
+          const element = getElementByCenterCoordinates(
+            lastLine?.endPoint.x,
+            lastLine?.endPoint.y
+          );
+          element.classList.remove(styles.hovered);
+          setUsersWords("delete");
+          setPositions();
+          draw();
+        }
+      }
     }
   };
-
+  
+  
   const handleEnd = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     if (drawing) {
       setLines([]);
-      setStartPoint({ x: 0, y: 0 })
-      setEndPoint({ x: 0, y: 0 })
+      setStartPoint({ x: 0, y: 0 });
+      setEndPoint({ x: 0, y: 0 });
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      returnDefaultStyle()
-      setUsersWords()
-      clearPositions()
-      setEnter()
+      returnDefaultStyle();
+      setUsersWords();
+      clearPositions();
+      setEnter();
       setDrawing(false);
     }
   };
-
+  
   const draw = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -98,7 +122,6 @@ const Canvas = ({ className}) => {
     }
   };
 
-
   return (
     <canvas
       onMouseDown={(e) => handleStart(e)}
@@ -123,5 +146,5 @@ export default Canvas;
 
 Canvas.propTypes = {
   className: PropTypes.string,
-  isDraw: PropTypes.bool
+  isDraw: PropTypes.bool,
 };

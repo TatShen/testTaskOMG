@@ -6,6 +6,7 @@
   align-items: center;
   position: relative;
   margin-bottom: 1.1rem;
+  margin-top: -3rem;
 }
 
 .lettersBlock {
@@ -17,6 +18,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 .center {
@@ -45,13 +47,14 @@
   color: #58595b;
   cursor: pointer;
   text-transform: capitalize;
+
 }
 
 .hovered {
   background-color: #e96fa4;
   border-bottom: #af638c 6px solid;
   color: white;
-  pointer-events: none;
+  
 }
 
 
