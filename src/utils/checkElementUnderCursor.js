@@ -8,6 +8,7 @@ export const checkElementUnderCursor = (e, ref) => {
   const x = e.touches ? e.touches[0].clientX : e.clientX;
   const y = e.touches ? e.touches[0].clientY : e.clientY;
   const element =  getElementByCenterCoordinates(x,y)
+
   if (element && element.tagName === "SPAN" && element.parentElement.id === "center") {
     const blockRect = canvas.getBoundingClientRect();
     const spanRect = element.getBoundingClientRect();
@@ -19,6 +20,7 @@ export const checkElementUnderCursor = (e, ref) => {
       element.classList.add(styles.hovered);
       return { x: spanX, y: spanY };
     }
+   
     return { x: spanX, y: spanY, element};
   }
 

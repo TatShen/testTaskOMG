@@ -22,20 +22,12 @@ const Canvas = ({ className }) => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
     const updateCanvasSize = () => {
       const { width, height } = canvas.getBoundingClientRect();
       setCanvasSize({ width, height });
     };
     window.addEventListener("resize", updateCanvasSize);
     updateCanvasSize();
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    ctx.strokeStyle = "#638ec4";
-    ctx.lineWidth = 15;
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
   }, []);
 
   const handleStart = (e) => {
@@ -55,11 +47,11 @@ const Canvas = ({ className }) => {
         setLines([...lines, { startPoint, endPoint: letterCoordinates }]);
         setStartPoint(letterCoordinates);
         setEndPoint(letterCoordinates);
-      } else {
-        setEndPoint(coordinates);
-      }
-      draw();
-      if (lines.length > 0 && letterCoordinates) {
+      } else if (
+        lines.length > 0 &&
+        letterCoordinates &&
+        letterCoordinates.element
+      ) {
         const lastLine = [...lines].pop();
         if (
           JSON.stringify(lastLine?.startPoint) ===
@@ -67,6 +59,7 @@ const Canvas = ({ className }) => {
         ) {
           setLines(lines.slice(0, lines.length - 1));
           setStartPoint(lastLine?.startPoint);
+          draw();
           const element = getElementByCenterCoordinates(
             lastLine?.endPoint.x,
             lastLine?.endPoint.y
@@ -74,13 +67,14 @@ const Canvas = ({ className }) => {
           element.classList.remove(styles.hovered);
           setUsersWords("delete");
           setPositions();
-          draw();
         }
+      } else {
+        setEndPoint(coordinates);
       }
+      draw();
     }
   };
-  
-  
+
   const handleEnd = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -96,7 +90,7 @@ const Canvas = ({ className }) => {
       setDrawing(false);
     }
   };
-  
+
   const draw = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");

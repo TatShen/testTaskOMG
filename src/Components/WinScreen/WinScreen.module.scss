@@ -39,3 +39,23 @@
       margin-top: 21.6rem;
     }
 }
+
+@media screen and (max-width: 612px){
+  .win{
+    p{
+    font-size: 1.5rem;
+  }
+  h2{
+    font-size: 2.5rem;
+  }
+
+  .next{
+    width: 18rem;
+    height: 4rem;
+    border-radius: 2.5rem;
+    font-size: 2rem;
+    margin-top: 15.6rem;
+  }
+  }
+  
+}
