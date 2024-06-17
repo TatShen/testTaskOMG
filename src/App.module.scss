@@ -1,11 +1,13 @@
 .mainContainer {
   width: 100svw;
+  max-width: 40rem;
   height: 100svh;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   box-sizing: border-box;
   position: fixed;
+  background-color:  #2b344b;;
 
   > div {
     h1 {

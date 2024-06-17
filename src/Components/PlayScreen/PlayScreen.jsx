@@ -10,10 +10,10 @@ export const PlayScreen = () => {
   const { level } = useStore(LevelsStore);
   return (
     <div className={styles.play}>
+     <Canvas className={styles.canvas} />
       <h1>Уровень {level}</h1>
       <WordsBlock />
       <Enter />
-      <Canvas className={styles.canvas} />
       <LettersBlock />
     </div>
   );

@@ -6,13 +6,13 @@
   align-items: center;
   position: relative;
   margin-bottom: 1.1rem;
-  margin-top: -3rem;
+  margin-top: -2rem;
 }
 
 .lettersBlock {
   position: relative;
-  width: 17.5rem;
-  height:17.5rem;
+  width: 15rem;
+  height:15rem;
   border: 1.5rem solid #3e4a68;
   border-radius: 50%;
   display: flex;
@@ -67,13 +67,13 @@
   }
 
   .lettersBlock{
-    width: 14rem;
-    height: 14rem;
+    width: 11.5rem;
+    height: 11.5rem;
   }
   .letter,
   .hovered {
-    width: 4rem;
-    height: 4rem;
+    width: 3rem;
+    height: 3rem;
     font-size: 2rem;
   }
 }
