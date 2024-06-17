@@ -11,7 +11,7 @@ const LevelsStore = create((set, get) => ({
     const level = get().level;
     const index = (level - 1) % 3;
     set(() => ({
-      words: dataArray[index].slice().sort((a, b) => a.length - b.length),
+      words: dataArray[index].sort((a, b) => a.length - b.length),
     }));
   },
   setLevel: () => set(() => ({ level: Number(get().level) + 1 })),

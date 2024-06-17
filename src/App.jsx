@@ -6,7 +6,7 @@ import LevelsStore from "./Store/LevelsStore";
 import EnterStore from "./Store/EnterStore";
 import { WinScreen } from "./Components/WinScreen/WinScreen";
 import { PlayScreen } from "./Components/PlayScreen/PlayScreen";
-
+import Canvas from "./Components/Canvas/Canvas";
 function App() {
   const { level, words, setWords, isActiveTab } = useStore(LevelsStore);
   const { usersWords } = useStore(EnterStore);
@@ -23,6 +23,7 @@ function App() {
 
   return (
     <>
+      {isActiveTab && !isWin && <Canvas className={styles.canvas} />}
       <div className={styles.mainContainer} id="mainContainer">
         {!isActiveTab && <Modal />}
         {isWin ? <WinScreen /> : <PlayScreen />}
